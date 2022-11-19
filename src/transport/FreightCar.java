@@ -3,11 +3,32 @@ package transport;
 public class FreightCar extends Transport implements Competing { // грузовые автомобили
     private final int maxSpeed;
     private final int bestLapTime;
+    private LoadCapacity loadCapacity;
 
-    public FreightCar(String brand, String model, int engineVolume, int maxSpeed, int bestLapTime) {
+    public FreightCar(String brand, String model, int engineVolume, int maxSpeed, int bestLapTime, LoadCapacity loadCapacity) {
         super(brand, model, engineVolume);
         this.maxSpeed = Validation.defaultNum(maxSpeed);
         this.bestLapTime = Validation.defaultNum(bestLapTime);
+        this.loadCapacity = loadCapacity;
+    }
+
+    public LoadCapacity getLoadCapacity() {
+        return loadCapacity;
+    }
+
+    public void setLoadCapacity(LoadCapacity loadCapacity) {
+        this.loadCapacity = loadCapacity;
+    }
+
+    @Override
+    public void showType() {
+        if (loadCapacity == null) {
+            System.out.println("Данных недостаточно");
+        } else {
+            String from = loadCapacity.getFrom() == null ? "" : "от " + loadCapacity.getFrom() + " ";
+            String to = loadCapacity.getTo() == null ? "" : "до " + loadCapacity.getTo();
+            System.out.println("Грузоподъемность авто: " + loadCapacity);
+        }
     }
 
     @Override
@@ -41,6 +62,6 @@ public class FreightCar extends Transport implements Competing { // грузов
 
     @Override
     public String toString() {
-        return "Грузовой автомобиль - " + getBrand() + " " + getModel() + ", объем двигателя - " + getEngineVolume() + "л.";
+        return "Грузовой автомобиль - " + getBrand() + " " + getModel() + ", грузоподъемность: от " + loadCapacity.getFrom() + " до " + loadCapacity.getTo() + ", объем двигателя - " + getEngineVolume() + "л.";
     }
 }

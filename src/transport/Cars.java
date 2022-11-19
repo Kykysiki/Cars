@@ -4,11 +4,28 @@ public class Cars extends Transport implements Competing { // легковые �
 
     private final int maxSpeed;
     private final int bestLapTime;
+    private BodyType bodyType;
 
-    public Cars(String brand, String model, int engineVolume, int maxSpeed, int bestLapTime) {
+    public Cars(String brand, String model, int engineVolume, int maxSpeed, int bestLapTime, BodyType bodyType) {
         super(brand, model, engineVolume);
         this.maxSpeed = Validation.defaultNum(maxSpeed);
         this.bestLapTime = Validation.defaultNum(bestLapTime);
+        this.bodyType = bodyType;
+    }
+
+    public BodyType getBodyType() {
+        return bodyType;
+    }
+
+    public void setBodyType(BodyType bodyType) {
+        this.bodyType = bodyType;
+    }
+
+    @Override
+    public void showType() {
+        if (bodyType == null) {
+            System.out.println("Данных недостаточно");
+        } else System.out.println("Тип кузова авто: " + bodyType);
     }
 
     @Override
@@ -42,6 +59,6 @@ public class Cars extends Transport implements Competing { // легковые �
 
     @Override
     public String toString() {
-        return "Легковой автомобиль - " + getBrand() + " " + getModel() + ", объем двигателя - " + getEngineVolume() + "л.";
+        return "Легковой автомобиль - " + getBrand() + " " + getModel() +", тип кузова - "+getBodyType().getType()+ ", объем двигателя - " + getEngineVolume() + "л.";
     }
 }
