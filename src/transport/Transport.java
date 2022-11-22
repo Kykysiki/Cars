@@ -19,6 +19,8 @@ public abstract class Transport {
 
     public abstract void showType();
 
+    public abstract boolean service();
+
     public String getBrand() {
         return brand;
     }

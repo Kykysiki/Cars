@@ -32,6 +32,11 @@ public class FreightCar extends Transport implements Competing { // грузов
     }
 
     @Override
+    public boolean service() {
+        return Math.random() > 0.765;
+    }
+
+    @Override
     public void startMoving() {
         System.out.println("Начинает заед.");
     }

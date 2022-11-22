@@ -5,9 +5,9 @@ import transport.*;
 
 public class Main {
     public static void main(String[] args) {
-        Cars bmw = new Cars("BMW", "i5", 3, 124, 3,BodyType.SEDAN);
-        FreightCar mercedes = new FreightCar("Mercedes benz", "sprinter", 3, 76, 6,LoadCapacity.N2);
-        Bus baw = new Bus("BAW", "Fenix", 3, 90, 5,Capacity.BIG);
+        Cars bmw = new Cars("BMW", "i5", 3, 124, 3, BodyType.SEDAN);
+        FreightCar mercedes = new FreightCar("Mercedes benz", "sprinter", 3, 76, 6, LoadCapacity.N2);
+        Bus baw = new Bus("BAW", "Fenix", 3, 90, 5, Capacity.BIG);
         CategoryB viktor = new CategoryB("Виктор Иванович", "B", 4, bmw);
         System.out.println(viktor);
         System.out.println(bmw);
@@ -31,5 +31,23 @@ public class Main {
         baw.getPitStop();
         baw.finishTheMove();
         baw.result();
+        System.out.println("");
+        service(bmw, mercedes, baw);
+    }
+
+    private static void service(Transport... transports) {
+        for (Transport transport : transports) {
+            serviceTransport(transport);
+        }
+    }
+
+    private static void serviceTransport(Transport transport) {
+        try {
+            if (!transport.service()) {
+                throw new RuntimeException("Автомобиль " + transport.getBrand() + transport.getModel() + " не прошёл диагностику");
+            }
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

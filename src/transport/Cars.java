@@ -29,6 +29,11 @@ public class Cars extends Transport implements Competing { // легковые �
     }
 
     @Override
+    public boolean service() {
+        return Math.random() > 0.6;
+    }
+
+    @Override
     public void startMoving() {
         System.out.println("Начинает заед.");
     }
@@ -59,6 +64,6 @@ public class Cars extends Transport implements Competing { // легковые �
 
     @Override
     public String toString() {
-        return "Легковой автомобиль - " + getBrand() + " " + getModel() +", тип кузова - "+getBodyType().getType()+ ", объем двигателя - " + getEngineVolume() + "л.";
+        return "Легковой автомобиль - " + getBrand() + " " + getModel() + ", тип кузова - " + getBodyType().getType() + ", объем двигателя - " + getEngineVolume() + "л.";
     }
 }
