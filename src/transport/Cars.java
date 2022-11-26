@@ -34,6 +34,11 @@ public class Cars extends Transport implements Competing { // легковые �
     }
 
     @Override
+    public void repear() {
+        System.out.println("Машина "+getBrand()+" "+getModel()+" починена");
+    }
+
+    @Override
     public void startMoving() {
         System.out.println("Начинает заед.");
     }

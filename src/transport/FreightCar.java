@@ -37,6 +37,11 @@ public class FreightCar extends Transport implements Competing { // грузов
     }
 
     @Override
+    public void repear() {
+        System.out.println("Грузовик "+getBrand()+" "+getModel()+" починен");
+    }
+
+    @Override
     public void startMoving() {
         System.out.println("Начинает заед.");
     }

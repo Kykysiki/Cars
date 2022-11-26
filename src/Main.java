@@ -1,38 +1,55 @@
 import driver.CategoryB;
 import driver.CategoryC;
 import driver.CategoryD;
+import driver.Driver;
 import transport.*;
+
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        Mechanic<Cars> ivan = new Mechanic<Cars>("Иван", "Дрыга", "Mинс");
+        Sponsor okko = new Sponsor("Okko", 1_500_000);
         Cars bmw = new Cars("BMW", "i5", 3, 124, 3, BodyType.SEDAN);
+        bmw.addDriver(new CategoryB("Виктор Иванович", "B", 4, bmw));
+        bmw.addMechanic(ivan);
+        bmw.addSponsor(okko);
+        System.out.println("");
+        Mechanic<FreightCar> anna = new Mechanic<FreightCar>("Анна", "Шульман", "Север");
+        Sponsor beel = new Sponsor("Бил", 900_000);
         FreightCar mercedes = new FreightCar("Mercedes benz", "sprinter", 3, 76, 6, LoadCapacity.N2);
+        mercedes.addDriver(new CategoryD("Андрей Романович", "D", 6, mercedes));
+        mercedes.addMechanic(anna);
+        mercedes.addSponsor(beel);
+        System.out.println("");
+        Mechanic<Bus> andre = new Mechanic<Bus>("Андре", "Турин", "Волтер");
+        Sponsor yandex = new Sponsor("Яндекс", 2_500_000);
         Bus baw = new Bus("BAW", "Fenix", 3, 90, 5, Capacity.BIG);
-        CategoryB viktor = new CategoryB("Виктор Иванович", "B", 4, bmw);
-        System.out.println(viktor);
-        System.out.println(bmw);
-        bmw.startMoving();
-        bmw.getPitStop();
-        bmw.finishTheMove();
-        bmw.result();
+        baw.addDriver(new CategoryC("Александр Николаевич", "D", 3, baw));
+        baw.addMechanic(andre);
+        baw.addSponsor(yandex);
         System.out.println("");
-        CategoryD andre = new CategoryD("Андрей Романович", "D", 6, mercedes);
-        System.out.println(andre);
-        System.out.println(mercedes);
-        mercedes.startMoving();
-        mercedes.getPitStop();
-        mercedes.finishTheMove();
-        mercedes.result();
-        System.out.println("");
-        CategoryC alex = new CategoryC("Александр Николаевич", "D", 3, baw);
-        System.out.println(alex);
-        System.out.println(baw);
-        baw.startMoving();
-        baw.getPitStop();
-        baw.finishTheMove();
-        baw.result();
-        System.out.println("");
-        service(bmw, mercedes, baw);
+        List<Transport> transports = List.of(bmw, mercedes, baw);
+        for (Transport transport : transports) {
+            printInfo(transport);
+        }
+    }
+
+    private static void printInfo(Transport transport) {
+        System.out.println("Информация по автомобилю " + transport.getBrand() + " " + transport.getModel());
+        System.out.printf("Водители: ");
+        for (Driver<?> driver : transport.getDrivers()) {
+            System.out.println(driver.getFullName());
+        }
+        System.out.printf("Спонсоры: ");
+        for (Sponsor sponsor : transport.getSponsors()) {
+            System.out.println(sponsor.getName());
+        }
+        System.out.printf("Механики: ");
+        for (Mechanic<?> mechanic : transport.getMechanics()) {
+            System.out.println(mechanic.getName() + " " + mechanic.getSurname() + " из " + mechanic.getCompany());
+        }
+        System.out.println();
     }
 
     private static void service(Transport... transports) {
